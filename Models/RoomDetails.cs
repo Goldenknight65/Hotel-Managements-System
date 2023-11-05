@@ -6,10 +6,14 @@ namespace Hotel_Managements_System.Models
     {
         [Key]
         private int id;
+        [Required]
         private string image;
+        [Required]
         private string food;
+        [Required]
         private int roomid;
-
+        [Required]
+        private string feature;
         public RoomDetails(int id, string image, string food, int roomid)
         {
             this.id = id;
@@ -22,6 +26,8 @@ namespace Hotel_Managements_System.Models
         public string Image { get => Image;set => Image = value; }
         public string Food { get => Food; set => Food = value; }
         public int Roomid { get => Roomid; set => Roomid = value; }
+        public string Feature { get => Feature; set => Feature = value; }
+
     }
 
 }

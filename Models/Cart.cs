@@ -6,10 +6,15 @@ namespace Hotel_Managements_System.Models
     {
         [Key]
         private int id;
+        [Required]
         private int hotelid;
+        [Required]
         private int roomid;
+        [Required]
         private int detailid;
+        [Required]
         private double price;
+        [Required]
         private int userid;
 
         public Cart(int id, int hotelid, int roomid,

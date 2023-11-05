@@ -7,10 +7,17 @@ namespace Hotel_Managements_System.Models
     {
         [Key]
         private int id;
+        [Required]
+        [StringLength(25)]
         private string name;
+        [Required]
+        [StringLength(100)]
         private string address;
+        [Required]
+        [StringLength(25)]
         private string city;
-        private string country;
+     
+        [Required]
         private string image;
 
         public Hotel()
@@ -18,13 +25,12 @@ namespace Hotel_Managements_System.Models
         }
 
         public Hotel(int id, string name, string address, string city,
-            string country, string image)
+            string image)
         {
             this.id = id;
             this.name = name;
             this.address = address;
             this.city = city;
-            this.country = country;
             this.image = image;
         }
 
@@ -32,7 +38,6 @@ namespace Hotel_Managements_System.Models
         public string Name { get => Name; set => Name = value; }
         public string Address { get => Address; set => Address = value; }
         public string City { get => City; set => City = value; }
-        public string Country { get => Country; set => Country = value; }
         public string Image { get => Image; set => Image = value; }
 
     }
