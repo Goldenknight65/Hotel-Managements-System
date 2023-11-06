@@ -12,7 +12,7 @@ namespace Hotel_Managements_System.Data
         }
         public DbSet<Cart> cart { set; get; }
         public DbSet<Hotel> hotel { set; get; }
-        public DbSet<Invoice>invoices { set; get; }
+        public DbSet<Invoice> Invoice { set; get; }
         public DbSet<RoomDetails> roomDetails { set; get; }
         public DbSet<Rooms> rooms { set; get; }
     }

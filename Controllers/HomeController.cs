@@ -1,4 +1,5 @@
-﻿using Hotel_Managements_System.Models;
+﻿using Hotel_Managements_System.Data;
+using Hotel_Managements_System.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,11 +7,10 @@ namespace Hotel_Managements_System.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context; 
         }
 
         public IActionResult Index()
@@ -35,6 +35,21 @@ namespace Hotel_Managements_System.Controllers
 
         public IActionResult RoomDetails() {
             return View();
+
+        }
+
+        public IActionResult AddHotel()
+        {
+            return View();
+
+        }
+
+        public IActionResult createNewHotel(Hotel hotel)
+        {
+            
+            _context.hotel.Add(hotel);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
 
         }
 

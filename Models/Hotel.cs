@@ -6,23 +6,22 @@ namespace Hotel_Managements_System.Models
     public class Hotel
     {
         [Key]
-        private int id;
+        public int id { set; get; }
         [Required]
         [StringLength(25)]
-        private string name;
+        public string name { set; get; }
         [Required]
         [StringLength(100)]
-        private string address;
+        public string address { set; get; }
         [Required]
         [StringLength(25)]
-        private string city;
-     
-        [Required]
-        private string image;
+        public string city { set; get; }
 
-        public Hotel()
-        {
-        }
+        [Required]
+        public string image { set; get; }
+
+        public Hotel() { }
+
 
         public Hotel(int id, string name, string address, string city,
             string image)
@@ -34,11 +33,6 @@ namespace Hotel_Managements_System.Models
             this.image = image;
         }
 
-        public int Id { get => Id; set => Id = value; }
-        public string Name { get => Name; set => Name = value; }
-        public string Address { get => Address; set => Address = value; }
-        public string City { get => City; set => City = value; }
-        public string Image { get => Image; set => Image = value; }
 
     }
 }

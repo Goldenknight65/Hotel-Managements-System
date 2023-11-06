@@ -5,17 +5,18 @@ namespace Hotel_Managements_System.Models
     public class Cart
     {
         [Key]
-        private int id;
+        public int id { set; get; }
         [Required]
-        private int hotelid;
+        public int hotelid { set; get; }
         [Required]
-        private int roomid;
+        public int roomid { set; get; }
         [Required]
-        private int detailid;
+        public int detailid { set; get; }
         [Required]
-        private double price;
+        public double price { set; get; }
         [Required]
-        private int userid;
+        public int userid { set; get; }
+        public Cart() { }
 
         public Cart(int id, int hotelid, int roomid,
             int detailid, double price, int userid)
@@ -27,11 +28,6 @@ namespace Hotel_Managements_System.Models
             this.price = price;
             this.userid = userid;
         }
-        public int Id { get=>  id; set=> id = value; }
-        public int Hotelid { get=> hotelid; set=> hotelid = value; }
-        public int Roomid { get=> roomid; set=> roomid = value; }
-        public int Detailid { get=> detailid; set=> detailid = value; }
-        public double Price { get=> price; set=> price = value; }
-        public int Userid { get=> userid; set=> userid = value; }
+       
     }
 }
