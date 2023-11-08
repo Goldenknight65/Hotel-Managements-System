@@ -15,6 +15,7 @@ namespace Hotel_Managements_System.Data
         public DbSet<Invoice> Invoice { set; get; }
         public DbSet<RoomDetails> roomDetails { set; get; }
         public DbSet<Rooms> rooms { set; get; }
+        public DbSet<User> users { set; get; }
     }
 }
     

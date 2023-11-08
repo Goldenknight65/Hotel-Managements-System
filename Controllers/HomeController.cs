@@ -30,9 +30,34 @@ namespace Hotel_Managements_System.Controllers
 
         public IActionResult HotelModule()
         {
-            return View();
+            var hotels = _context.hotel.ToList();
+            return View(hotels);
+            /*    ViewBag.hotels = hotels;
+                  return View();*/
+        }
+        public IActionResult ViewRoom(int id) {
+            var hotel = _context.hotel.SingleOrDefault(x => x.id == id);
+            return RedirectToAction("RoomDetails");
         }
 
+        public IActionResult EditHotel(int id)
+        {
+            var hotel = _context.hotel.SingleOrDefault(x=>x.id ==id);
+            return View(hotel);
+        }
+        public IActionResult Update(Hotel hotel)
+        {
+            _context.hotel.Update(hotel);
+            _context.SaveChanges();
+            return RedirectToAction("HotelModule");
+        }
+        public IActionResult DeleteHotel(int id)
+        {
+            var removeHotel = _context.hotel.SingleOrDefault(x => x.id == id);
+            _context.hotel.Remove(removeHotel);
+            _context.SaveChanges();
+            return RedirectToAction("HotelModule");
+        }
         public IActionResult RoomDetails() {
             return View();
 

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Hotel_Managements_System.Models
 {
@@ -19,18 +18,19 @@ namespace Hotel_Managements_System.Models
 
         [Required]
         public string image { set; get; }
-
+        public string phone { set; get; }
         public Hotel() { }
 
 
         public Hotel(int id, string name, string address, string city,
-            string image)
+            string image, string phone)
         {
             this.id = id;
             this.name = name;
             this.address = address;
             this.city = city;
             this.image = image;
+            this.phone = phone;
         }
 
 
