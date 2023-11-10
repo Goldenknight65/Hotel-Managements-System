@@ -67,6 +67,8 @@
 
 @{
 	ViewData["Title"] = "Dashboard";
+	var messageState =	TempData["messageState"] as string;
+	var message = TempData["message"] as string;
 }
 <body dir="rtl" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-sidebar-push-header="true"
 data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default w-100">
@@ -137,7 +139,7 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title" style="font-family:Cairo">المنتجات </span>
+												<span class="menu-title" style="font-family:Cairo">الفندق</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -149,7 +151,7 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title" style="font-family:Cairo"> تفاصيل المنتجات </span>
+												<span class="menu-title" style="font-family:Cairo"> الغرف </span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -160,7 +162,7 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title" style="font-family:Cairo"> بطاقات الدفع المعتمدة  </span>
+												<span class="menu-title" style="font-family:Cairo"> تفاصيل غرف  </span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -306,7 +308,7 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 											
 												<th class="min-w-125px text-end" style="font-family:cairo">العنوان</th>
 
-												<th class="min-w-125px text-end" style="font-family:cairo">صورة المنتج</th>
+												<th class="min-w-125px text-end" style="font-family:cairo"> TBD</th>
 
 												<th class="min-w-125px text-end" style="font-family:cairo">إجراء </th>
 
@@ -316,47 +318,62 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 										<!--end::Table head-->
 										<!--begin::Table body-->
 										<tbody class="fw-semibold text-gray-600">
-											<tr v-for="(item, aidx) in Franchies" :key="aidx">
-												<!--begin::Checkbox-->
-												<td>
-													<div class="form-check form-check-sm form-check-custom form-check-solid">
-														<input class="form-check-input" type="checkbox" value="1" />
-													</div>
-												</td>
-												<!--end::Checkbox-->
-												<!--begin::Name=-->
-												<td>
+											@if(Model !=null)
+											@foreach(var hotel in Model)
+											{
+													<tr v-for="(item, aidx) in Franchies" :key="aidx">
+														<!--begin::Checkbox-->
+														<td>
+															<div class="form-check form-check-sm form-check-custom form-check-solid">
+																<input class="form-check-input" type="checkbox" value="1" />
+															</div>
+														</td>
+														<!--end::Checkbox-->
+														<!--begin::id=-->
+														<td>
 
-													<a href="#" class="text-gray-600 text-hover-primary mb-1"></a>
+															<a href="#" class="text-gray-600 text-hover-primary mb-1">@hotel.id</a>
+
+														</td>
+														<!--end::id=-->
+														<!--begin::name=-->
+														<td>
+
+															<a href="#" class="text-gray-600 text-hover-primary mb-1">@hotel.name</a>
 
 
+														</td>
+														<!--end::name=-->
+														<!--begin::city=-->
+														<td>
+															
+																@hotel.city
+															
+														</td>
+														<!--end::city=-->
 
-												</td>
-												<!--end::Name=-->
-												<!--begin::Email=-->
-												<td>
+														<!--begin:: PRICE=-->
+														<td>PRICE</td>
+														<!--end::PRICE=-->
+														<!--begin::PHONE NUMBER=-->
+														<td>@hotel.phone</td>
+														<!--end::phone number=-->
+														
+														<td>@hotel.address</td>
 
-													<a href="#" class="text-gray-600 text-hover-primary mb-1"></a>
+													
+														<td>TBD</td>
 
-
-												</td>
-												<!--end::Email=-->
-												<!--begin::Status=-->
-												<td>
-													<!--begin::Badges-->
-													<div class="badge badge-light-success"></div>
-													<!--end::Badges-->
-												</td>
-												<!--end::Status=-->
-												<!--begin::IP Address=-->
-												<td></td>
-												<!--end::IP Address=-->
-												<!--begin::Date=-->
-												<td></td>
-												<!--end::Date=-->
-												<!--begin::Action=-->
-												<!--end::Action=-->
-											</tr>
+														<td>
+															<div class="btn-group">
+																<a asp-action="HotelDetails" asp-route-id="@hotel.id" class="btn btn-outline-primary">View</a>
+																<a asp-action="DeleteHotel" asp-route-id="@hotel.id" class="btn btn-outline-danger">Delete</a>
+																<a asp-action="EditHotel" asp-route-id="@hotel.id" class="btn btn-outline-success">Edit</a>
+															</div>
+														</td>
+													</tr>
+											}
+								
 
 
 
@@ -366,6 +383,10 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 										</tbody>
 										<!--end::Table body-->
 									</table>
+									@if ( messageState == "1")
+									{
+										<div class="alert-dismissible alert-danger text-center text">@message</div>
+									}
 									<!--end::Table-->
 								</div>
 								<!--end::Card body-->

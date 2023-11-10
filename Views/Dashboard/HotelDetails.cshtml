@@ -1,0 +1,44 @@
+﻿@{
+  var hotel = ViewBag.hotel;
+}
+
+<div class="room-body">
+    <style>
+        /* Add your custom styles here */
+        .hotel-body {
+            padding: 20px;
+        }
+
+        .hotel-module {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+
+    <div class="container">
+        <div class="hotel-module">
+            <h2>@hotel.name</h2>
+
+            <p><strong>:العنوان</strong> @hotel.address</p>
+            <p><strong>المدينة:</strong> @hotel.city</p>
+
+            <p><strong>رقم التواصل</strong> @hotel.address</p>
+
+            <img alt="Room Image" class="col-12">
+
+
+        </div>
+
+        <a asp-action="AddRoom" asp-route-id="@hotel.id" class="btn btn-outline-success col-12">إضافة غرفة</a>
+
+    </div>
+
+
+
+    @* @foreach ()
+    {
+        this code show hotel room 
+    } *@
+</div>
