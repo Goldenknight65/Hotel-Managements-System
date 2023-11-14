@@ -1,8 +1,65 @@
-﻿@{
+﻿@model IEnumerable<Hotel_Managements_System.Models.Hotel>
+@Model IEnumerable <HotelDB> 
+
+@{
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+<div class="hotel-body">
+    <style>
+        .hotel-body {
+            padding: 20px;
+        }
+
+        .hotel-module {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hotel-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+
+
+    @if (Model != null)
+        @foreach (var item in Model)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="hotel-module">
+                            <!-- Hotel Name -->
+                            <h2>@item.name</h2>
+
+                            <!-- Body Information (Address, City, Country) -->
+                            <p><strong>Address:</strong> @item.address</p>
+                            <p><strong>City:</strong>@item.city</p>
+                            <p><strong>phone:</strong>  @item.phone</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- Image -->
+                        <img src="@item.image" alt="Hotel Image" class="hotel-image">
+
+
+                        <div class="text-right p-1">
+                            <div class="btn-group">
+                                    <a asp-action="RoomList" asp-route-id="@item.id" class="btn btn-primary">View Room</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+
+
 </div>
+

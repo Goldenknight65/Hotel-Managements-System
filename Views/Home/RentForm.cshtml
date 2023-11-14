@@ -1,9 +1,11 @@
 ﻿
 @{
+    int roomid = ViewBag.room;
+    int hotelid = ViewBag.hotel;
 }
 <div class="container">
     <h2>Payment Information</h2>
-    <form>
+    <form asp-action="RentApplication" method="post">
         <!-- Full Name -->
         <div class="form-group">
             <label for="fullName">Full Name</label>
@@ -26,6 +28,19 @@
         <div class="form-group">
             <label for="cvv">CVV</label>
             <input type="text" class="form-control" id="cvv" placeholder="Enter CVV" required>
+        </div>
+
+
+
+        <div class="form-group  visually-hidden">
+            <label for="hotelid">hotel id</label>
+            <input type="text" name="hoteid" class="form-control" id="hotelid" asp-for="@hotelid" disabled required>
+        </div>
+
+
+        <div class="form-group  visually-hidden ">
+            <label for="id">room id</label>
+            <input type="text" class="form-control" id="id" name="id" placeholder="room id" asp-for="@roomid" disabled required>
         </div>
 
         <!-- Submit Button -->

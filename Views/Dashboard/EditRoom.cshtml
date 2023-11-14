@@ -1,0 +1,72 @@
+﻿@model Hotel_Managements_System.Models.Rooms
+@*   @Model HotelDB *@
+
+@{
+}
+<div class="container">
+	<form class="form" method="post" asp-action="UpdateRoom">
+
+		<div class="form-group visually-hidden">
+			<label for="id">id:</label>
+			<input type="text" class="form-control" name="id" id="id" placeholder="Enter type" asp-for="@Model.id" disabled required>
+			<span class="text-danger" asp-validation-for="id"></span>
+
+		</div>
+
+		<div class="form-group">
+			<label for="type">Type:</label>
+			<input type="text" class="form-control required" name="type" id="type" placeholder="Enter type" asp-for="@Model.type" required>
+			<span class="text-danger" asp-validation-for="type"></span>
+
+		</div>
+		<div class="form-group">
+			<label for="price">Price:</label>
+			<input type="number" class="form-control required" name="price" id="price" placeholder="Enter price" asp-for="@Model.price" required>
+			<span class="text-danger" asp-validation-for="price"></span>
+
+		</div>
+		<div class="form-group">
+			<label for="image">Image URL:</label>
+			<input type="text" class="form-control required" name="image" id="image" placeholder="Enter image URL" asp-for="@Model.image" required>
+			<span class="text-danger" asp-validation-for="image"></span>
+
+		</div>
+		<div class="form-group">
+			<label for="roomNumber">Room Number:</label>
+			<input type="text" class="form-control required" name="room_number" id="room_number" placeholder="Enter room number" asp-for="@Model.room_number" required>
+			<span class="text-danger" asp-validation-for="room_number"></span>
+
+		</div>
+
+
+
+		<div class="form-group">
+			<label for="hotelId">Hotel ID:</label>
+			@* 													<input type="text" class="form-control" name="hotelid" id="hotelid" asp-for="@hotelid">*@
+			<select name="hotelid" required>
+				@foreach (var hotel in ViewBag.hotels)
+				{
+					<option value="@hotel.id">@hotel.name</option>
+				}
+			</select>
+		</div>
+
+
+
+
+
+		<div class="form-group" >
+			<label for="food">Food:</label>
+			<input type="text" class="form-control required" id="food" name="food" placeholder="Enter food" asp-for="@Model.food" required>
+			<span class="text-danger" asp-validation-for="food"></span>
+
+		</div>
+		<div class="form-group">
+			<label for="feature">Feature:</label>
+			<input type="text" name="feature" class="form-control required" id="feature" placeholder="Enter feature" asp-for="@Model.feature" required>
+			<span class="text-danger" asp-validation-for="feature"></span>
+
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>

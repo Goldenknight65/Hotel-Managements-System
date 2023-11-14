@@ -18,7 +18,12 @@ namespace Hotel_Managements_System.Models
 
         [Required]
         public string image { set; get; }
-        public string phone { set; get; }
+		[StringLength(15)]
+		[Required]
+
+		public string phone { set; get; }
+		[Required]
+		public string email { set; get; }
         public Hotel() { }
 
 

@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.Serialization;
 
 namespace Hotel_Managements_System.Models
 {
-    public class Invoice
+	public class Invoice
     {
         [Key]
         public int id { set; get; }

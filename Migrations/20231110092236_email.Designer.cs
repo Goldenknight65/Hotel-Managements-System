@@ -4,6 +4,7 @@ using Hotel_Managements_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel_Managements_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231110092236_email")]
+    partial class email
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,7 +131,7 @@ namespace Hotel_Managements_System.Migrations
                     b.ToTable("Invoice");
                 });
 
-            modelBuilder.Entity("Hotel_Managements_System.Models.Rooms", b =>
+            modelBuilder.Entity("Hotel_Managements_System.Models.RoomDetails", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -143,6 +146,26 @@ namespace Hotel_Managements_System.Migrations
                     b.Property<string>("food")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("roomid")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("roomDetails");
+                });
+
+            modelBuilder.Entity("Hotel_Managements_System.Models.Rooms", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("hotelid")
                         .HasColumnType("int");
@@ -169,15 +192,11 @@ namespace Hotel_Managements_System.Migrations
 
             modelBuilder.Entity("Hotel_Managements_System.Models.User", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("password")
                         .IsRequired()
@@ -187,7 +206,7 @@ namespace Hotel_Managements_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("users");
                 });

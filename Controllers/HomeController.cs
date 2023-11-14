@@ -15,7 +15,8 @@ namespace Hotel_Managements_System.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var hotels = _context.hotel.ToList();
+            return View(hotels);
         }
 
         public IActionResult Privacy()
@@ -23,59 +24,24 @@ namespace Hotel_Managements_System.Controllers
             return View();
         }
 
-        public IActionResult BuyForm()
+        public IActionResult RentForm(int id)
         {
+            var room = _context.rooms.SingleOrDefault(x => x.id == id);
+
+            var hotel = _context.hotel.SingleOrDefault(x => x.id == room.hotelid);
+            ViewBag.room = room.id;
+            ViewBag.hotel = hotel.id;
             return View();
         }
 
-        public IActionResult HotelModule()
+        public IActionResult RoomList(int id)
         {
-            var hotels = _context.hotel.ToList();
-            return View(hotels);
-            /*    ViewBag.hotels = hotels;
-                  return View();*/
-        }
-        public IActionResult ViewRoom(int id) {
             var hotel = _context.hotel.SingleOrDefault(x => x.id == id);
-            return RedirectToAction("RoomDetails");
-        }
 
-        public IActionResult EditHotel(int id)
-        {
-            var hotel = _context.hotel.SingleOrDefault(x=>x.id ==id);
-            return View(hotel);
-        }
-        public IActionResult Update(Hotel hotel)
-        {
-            _context.hotel.Update(hotel);
-            _context.SaveChanges();
-            return RedirectToAction("HotelModule");
-        }
-        public IActionResult DeleteHotel(int id)
-        {
-            var removeHotel = _context.hotel.SingleOrDefault(x => x.id == id);
-            _context.hotel.Remove(removeHotel);
-            _context.SaveChanges();
-            return RedirectToAction("HotelModule");
-        }
-        public IActionResult RoomDetails() {
+            var rooms = _context.rooms.Where(r => r.hotelid == id).ToList();
+            ViewBag.hotel = hotel;
+            ViewBag.rooms = rooms;
             return View();
-
-        }
-
-        public IActionResult AddHotel()
-        {
-            return View();
-
-        }
-
-        public IActionResult createNewHotel(Hotel hotel)
-        {
-            
-            _context.hotel.Add(hotel);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-
         }
 
 

@@ -1,6 +1,4 @@
-﻿
-
-@* 
+﻿@*
 
 
 <div class="hotel-body">
@@ -61,18 +59,18 @@
  *@
 
 
-@model IEnumerable<Hotel_Managements_System.Models.Hotel>
-@* @Model IEnumerable <HotelDB> *@
+@model IEnumerable<Hotel_Managements_System.Models.Rooms> 
 
 
-@{
-	ViewData["Title"] = "Dashboard";
-	var messageState =	TempData["messageState"] as string;
-	var message = TempData["message"] as string;
-	
-}
+
+	@{
+		ViewData["Title"] = "Dashboard";
+		var messageState = TempData["messageState"] as string;
+		var message = TempData["message"] as string;
+		var hotels = ViewBag.hotels as List<Hotel>;
+	}
 <body dir="rtl" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-sidebar-push-header="true"
-data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default w-100">
+	  data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default w-100">
 
 
 
@@ -140,7 +138,7 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title" style="font-family:Cairo">الفندق</span>
+													<span class="menu-title" style="font-family:Cairo">الفندق</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -157,6 +155,7 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 											<!--end:Menu link-->
 										</div>
 
+								
 										<!--end:Menu item-->
 										<!--begin:Menu item-->
 										<div class="menu-item">
@@ -277,25 +276,18 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 								<!--begin::Card body-->
 								<div class="card-body pt-0">
 									<h1> مرحبا @ViewBag.user</h1>
-
-									<form asp-action="Index" method="post" class="from">
-										<select name="city" id="city" class="form-control form-control-sm" onchange="this.form.submit()">
+@* 
+									<form asp-action="Rooms" method="post" id="room_filter" class="from">
+										<select name="name" class="from-controller" onchange="this.form.submit()">
 											<option></option>
 											<option value="all">All</option>
-											@foreach (var hotel in Model)
+											@foreach (var hotel in hotels)
 											{
-												<option value="@hotel.city">@hotel.city</option>
+											<option value="@hotel.name">@hotel.name</option>
 											}
 
 										</select>
-									</form>
-									<div class="col-12">
-										<span class="alert-danger text-danger" asp-validation-for="@Model.First().name"></span>
-										<span class="alert-danger text-danger" asp-validation-for="@Model.First().city"></span>
-										<span class="alert-danger text-danger" asp-validation-for="@Model.First().phone"></span>
-										<span class="alert-danger text-danger" asp-validation-for="@Model.First().address"></span>
-										<span class="alert-danger text-danger" asp-validation-for="@Model.First().email"></span>
-									</div>
+									</form> *@
 									<!--begin::Table-->
 									<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
 										<!--begin::Table head-->
@@ -307,18 +299,19 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 														<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
 													</div>
 												</th>
-												<th class="min-w-125px text-end" style="font-family:cairo">رقم الفندق </th>
-												<th class="min-w-125px text-end" style="font-family:cairo"> اسم الفندق </th>
-												<th class="min-w-125px text-end" style="font-family:cairo">المدينة  </th>
+												<th class="min-w-125px text-end" style="font-family:cairo">id الغرفة </th>
+													<th class="min-w-125px text-end" style="font-family:cairo"> الفندق </th>
+
+													<th class="min-w-125px text-end" style="font-family:cairo"> رقم الغرفة </th>
 
 												<th class="min-w-125px text-end" style="font-family:cairo">السعر </th>
 
-												<th class="min-w-125px text-end" style="font-family:cairo">هاتف</th>
+												<th class="min-w-125px text-end" style="font-family:cairo">نوع</th>
 
-											
-												<th class="min-w-125px text-end" style="font-family:cairo">العنوان</th>
 
-												<th class="min-w-125px text-end" style="font-family:cairo"> email</th>
+												<th class="min-w-125px text-end" style="font-family:cairo">المزايا</th>
+
+												<th class="min-w-125px text-end" style="font-family:cairo"> طعام</th>
 
 												<th class="min-w-125px text-end" style="font-family:cairo">إجراء </th>
 
@@ -328,9 +321,9 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 										<!--end::Table head-->
 										<!--begin::Table body-->
 										<tbody class="fw-semibold text-gray-600">
-											@if(Model !=null)
-											@foreach(var hotel in Model)
-											{
+											@if (Model != null)
+												@foreach (var room in Model)
+												{
 													<tr v-for="(item, aidx) in Franchies" :key="aidx">
 														<!--begin::Checkbox-->
 														<td>
@@ -342,58 +335,59 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 														<!--begin::id=-->
 														<td>
 
-															<a href="#" class="text-gray-600 text-hover-primary mb-1">@hotel.id</a>
+															<a href="#" class="text-gray-600 text-hover-primary mb-1">@room.id</a>
 
 														</td>
+
+
+															<td>
+																@{
+																	var hotel = hotels.FirstOrDefault((Func<Hotel, bool>)(hotel => hotel.id == room.hotelid));
+
+																<a href="#" class="text-gray-600 text-hover-primary mb-1">@hotel.name</a>
+																}
+															</td>
+
+
 														<!--end::id=-->
 														<!--begin::name=-->
 														<td>
 
-															<a href="#" class="text-gray-600 text-hover-primary mb-1">@hotel.name</a>
+																<a href="#" class="text-gray-600 text-hover-primary mb-1">@room.room_number</a>
 
 
 														</td>
 														<!--end::name=-->
 														<!--begin::city=-->
-														<td>
-															
-																@hotel.city
-															
-														</td>
+												
 														<!--end::city=-->
-
 														<!--begin:: PRICE=-->
-														<td>PRICE</td>
+														<td>@room.price</td>
 														<!--end::PRICE=-->
 														<!--begin::PHONE NUMBER=-->
-														<td>@hotel.phone</td>
+														<td>@room.type</td>
 														<!--end::phone number=-->
-														
-														<td>@hotel.address</td>
 
-													
-														<td>@hotel.email</td>
+														<td>@room.feature</td>
+
+
+														<td>@room.food</td>
 
 														<td>
 															<div class="btn-group">
-																<a asp-action="HotelDetails" asp-route-id="@hotel.id" class="btn btn-outline-primary">View</a>
-																<a asp-action="DeleteHotel" asp-route-id="@hotel.id" class="btn btn-outline-danger">Delete</a>
-																<a asp-action="EditHotel" asp-route-id="@hotel.id" class="btn btn-outline-success">Edit</a>
+															<a asp-action="EditRoom" asp-route-id="@room.id" class="btn btn-outline-success">Edit</a>
+
+															<a asp-action="DeleteRoom" asp-route-id="@room.id" class="btn btn-outline-danger">Delete</a>
+															
 															</div>
 														</td>
 													</tr>
-											}
-								
-
-
-
-
-
+												}
 
 										</tbody>
 										<!--end::Table body-->
 									</table>
-									@if ( messageState == "1")
+									@if (messageState == "1")
 									{
 										<div class="alert-dismissible alert-danger text-center text">@message</div>
 									}
@@ -409,92 +403,52 @@ data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" d
 									<!--begin::Modal content-->
 									<div class="modal-content">
 										<!--begin::Form-->
-										<form class="form" method="post" id="kt_modal_add_customer_form" asp-action="createNewHotel">
-											<!--begin::Modal header-->
-											<div class="modal-header" id="kt_modal_add_customer_header">
-												<!--begin::Modal title-->
-												<h2 class="fw-bold"> إضافة فندق جديد</h2>
-												<!--end::Modal title-->
-												<!--begin::Close-->
-												<div id="kt_modal_add_customer_close" data-bs-dismiss="modal" class="btn btn-icon btn-sm btn-active-icon-primary">
-													<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-													<span class="svg-icon svg-icon-1">
-														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-															<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-															<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
-														</svg>
-													</span>
-													<!--end::Svg Icon-->
+											<form class="form" method="post" asp-action="createNewRoomA">
+												<div class="form-group">
+													<label for="type">Type:</label>
+													<input type="text" class="form-control" name="type" id="type" placeholder="Enter type">
 												</div>
-												<!--end::Close-->
-											</div>
-											<!--end::Modal header-->
-											<!--begin::Modal body-->
-											<div class="modal-body py-10 px-lg-17">
-												<!--begin::Scroll-->
-												<div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-													<!--begin::Input group-->
-													<div class="form-group">
-														<label for="name"> اسم الفندق</label>
-														<input required id="name" name="name" type="text" class="form-control required" />
-														<span class="text-danger" asp-validation-for="@Model.First().name"></span>
-
-													</div>
-													<div class="form-group">
-														<label for="address">عنوان الفندق</label>
-														<input required id="address" name="address" type="text" class="form-control required" />
-														<span class="text-danger" asp-validation-for="@Model.First().address"></span>
-
-													</div>
-													<div class="form-group">
-														<label for="city">المدينة</label>
-														<input required id="city" name="city" class="form-control" />
-														<span class="text-danger" asp-validation-for="@Model.First().city"></span>
-
-													</div>
-													<div class="form-group">
-														<label for="image"> صورة الفندق</label>
-														<input required id="image" name="image" class="form-control required" />
-														<span class="text-danger" asp-validation-for="@Model.First().image"></span>
-
-													</div>
-
-													<div class="form-group">
-														<label for="phone">هاتف</label>
-														<input required id="phone" name="phone" class="form-control tel required" />
-														<span class="text-danger" asp-validation-for="@Model.First().phone"></span>
-
-													</div>
-
-
-													<div class="form-group">
-														<label for="phone">email</label>
-														<input required id="email" name="email" type="email" class="form-control tel required" />
-														<span class="text-danger" asp-validation-for="@Model.First().email"></span>
-
-													</div>
-
-
-
-
+												<div class="form-group">
+													<label for="price">Price:</label>
+													<input type="number" class="form-control" name="price" id="price" placeholder="Enter price">
 												</div>
-												<!--end::Scroll-->
-											</div>
-											<!--end::Modal body-->
-											<!--begin::Modal footer-->
-											<div class="modal-footer flex-center">
+												<div class="form-group">
+													<label for="image">Image URL:</label>
+													<input type="text" class="form-control" name="image" id="image" placeholder="Enter image URL">
+												</div>
+												<div class="form-group">
+												<label for="room_number">Room Number:</label>
+												<input type="text" class="form-control" name="room_number" id="room_number" placeholder="Enter room number">
+												</div>
 
-												<button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
-													<span class="indicator-label">حفظ</span>
-													<span class="indicator-progress">
-														الرجاء النتظار...
-														<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-													</span>
-												</button>
-												<!--end::Button-->
-											</div>
-											<!--end::Modal footer-->
-										</form>
+
+
+												<div class="form-group">
+													<label for="hotelId">Hotel ID:</label>
+@* 													<input type="text" class="form-control" name="hotelid" id="hotelid" asp-for="@hotelid">*@
+													<select name="hotelid">
+														<option></option>
+														@foreach (var hotel in hotels)
+														{
+															<option value="@hotel.id">@hotel.name</option>
+														}
+													</select>
+												</div>
+
+
+
+
+
+												<div class="form-group">
+													<label for="food">Food:</label>
+													<input type="text" class="form-control" id="food" name="food" placeholder="Enter food">
+												</div>
+												<div class="form-group">
+													<label for="feature">Feature:</label>
+													<input type="text" name="feature" class="form-control" id="feature" placeholder="Enter feature">
+												</div>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</form>
 										<!--end::Form-->
 									</div>
 								</div>

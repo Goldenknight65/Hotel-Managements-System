@@ -1,0 +1,84 @@
+﻿@Model IEnumerable <HotelDB>
+
+    @{
+        var hotel = ViewBag.hotel;
+        int hotelid = hotel.id;
+        var rooms = ViewBag.rooms;
+    }
+
+    <div class="room-body">
+        <style>
+            .hotel-body {
+                padding: 20px;
+            }
+
+            .hotel-module {
+                border: 1px solid #ddd;
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .room-body {
+                padding: 20px;
+            }
+
+            .room-module {
+                border: 1px solid #ddd;
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .room-image {
+                max-width: 100%;
+                height: auto;
+            }
+
+        </style>
+
+        <div class="container">
+            <div class="hotel-module">
+                <h2>@hotel.name</h2>
+
+                <p><strong>:العنوان</strong> @hotel.address</p>
+                <p><strong>المدينة:</strong> @hotel.city</p>
+
+                <p><strong>رقم التواصل</strong> @hotel.address</p>
+
+                <img src="@hotel.image" alt="Room Image" class="col-12">
+
+
+    
+        </div>
+
+
+
+           
+
+        @if (rooms != null)
+            @foreach (Rooms room in rooms)
+            {
+
+                <div class="container">
+                    <div class="room-module">
+                        <h2>Room Type: @room.type</h2>
+
+
+                        <p> @room.price per night</p>
+
+                        <p>Feature: @room.feature</p>
+
+
+                        <img alt="Room Image" src="room.image" class="room-image">
+
+                        <p><strong>Room Number:</strong> @room.room_number</p>
+
+
+                      <a asp-action="RentForm" asp-route-id="@room.id" class="btn btn-primary">Rent</a>
+
+                    </div>
+
+
+                </div>
+            }
+    </div>
+    </div>
