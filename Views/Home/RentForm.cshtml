@@ -9,13 +9,13 @@
         <!-- Full Name -->
         <div class="form-group">
             <label for="fullName">Full Name</label>
-            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+            <input type="text" class="form-control" name="fullName" id="fullName" placeholder="Enter your full name" required>
         </div>
 
         <!-- Phone Number -->
         <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
-            <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
+            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
         </div>
 
 @*         <!-- Card Number -->
@@ -45,29 +45,28 @@
 
         <div class="form-group  visually-hidden">
             <label for="hotelid">hotel id</label>
-            <input type="text" name="hoteid" class="form-control" id="hotelid" asp-for="@hotelid" disabled required>
+            <input type="text" name="hoteid" class="form-control" id="hotelid" asp-for="@hotelid" required>
         </div>
 
 
-        <div class="form-group  visually-hidden ">
+        <div class="form-group  visually-hidden">
             <label for="id">room id</label>
-            <input type="text" class="form-control" id="id" name="id" placeholder="room id" asp-for="@roomid" disabled required>
+            <input class="form-control" id="id" name="id" placeholder="room id" asp-for="@roomid" required>
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+
 </div>
 <script>
-    $(document).ready(function () {
-        // Initialize DateTimePicker
-        $('#from').datepicker({
-            format: 'yyyy-mm-ddThh:ii',
-            autoclose: true
-        });
+    $(function () {
+        $('#from').datetimepicker();
+    });
 
-        // Set the default date to the current date and time
-        var currentDate = new Date();
-        $('#from').datepicker('setDate', currentDate);
+
+    $(function () {
+        $('#to').datetimepicker();
     });
 </script>

@@ -46,21 +46,21 @@ namespace Hotel_Managements_System.Controllers
             return View();
         }
 
-        public IActionResult RentApplication( int id, DateTime from, DateTime to, string name,string phoneNumber)
+        public IActionResult RentApplication( int id, DateTime from, DateTime to, string fullName, string phoneNumber)
         {
             User user = new User();
             user.phone = phoneNumber;
-            user.name = name;
+            user.name = fullName;
 
 /*          
                 _context.users.Add(user);
                 _context.SaveChanges();
 */
 
-       
+            
 
-        var room = _context.rooms.SingleOrDefault(x => x.id == id).price;
-
+            var ro = _context.rooms.SingleOrDefault(x => x.id == id);
+            var room = ro.price;
             TimeSpan difference = to.Subtract(from);
             int days = difference.Days;
             double rentprice = (room * days);
