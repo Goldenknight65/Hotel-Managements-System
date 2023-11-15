@@ -1,6 +1,8 @@
 ﻿using Hotel_Managements_System.Data;
 using Hotel_Managements_System.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 
 namespace Hotel_Managements_System.Controllers
@@ -44,7 +46,55 @@ namespace Hotel_Managements_System.Controllers
             return View();
         }
 
+        public IActionResult RentApplication( int id, DateTime from, DateTime to, string name,string phoneNumber)
+        {
+            User user = new User();
+            user.phone = phoneNumber;
+            user.name = name;
 
+/*          
+                _context.users.Add(user);
+                _context.SaveChanges();
+*/
+
+       
+
+        var room = _context.rooms.SingleOrDefault(x => x.id == id).price;
+
+            TimeSpan difference = to.Subtract(from);
+            int days = difference.Days;
+            double rentprice = (room * days);
+
+
+
+
+
+            Invoice invoice = new Invoice();
+            invoice.from = from;
+            invoice.to = to;
+            invoice.invoiceDate = DateTime.Now;
+            invoice.total = rentprice;
+            invoice.tax = 15;
+            invoice.net = rentprice + (rentprice * 0.15);
+
+
+            Bill bill = new Bill();
+            bill.from = from;
+            bill.to = to;
+            bill.invoiceDate = DateTime.Now;
+            bill.total = rentprice;
+            bill.tax = 15;
+            bill.net = rentprice + (rentprice * 0.15);
+            bill.name = user.name;
+            bill.phone = user.phone;
+            bill.discount = 0;
+
+            _context.bills.Add(bill);
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

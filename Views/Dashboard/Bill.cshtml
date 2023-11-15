@@ -59,16 +59,16 @@
  *@
 
 
-@model IEnumerable<Hotel_Managements_System.Models.Rooms> 
+@model IEnumerable<Hotel_Managements_System.Models.Bill>
+@* @Model IEnumerable <HotelDB> *@
 
 
+@{
+	ViewData["Title"] = "Dashboard";
+	var messageState = TempData["messageState"] as string;
+	var message = TempData["message"] as string;
 
-	@{
-		ViewData["Title"] = "Dashboard";
-		var messageState = TempData["messageState"] as string;
-		var message = TempData["message"] as string;
-		var hotels = ViewBag.hotels as List<Hotel>;
-	}
+}
 <body dir="rtl" id="kt_app_body" data-kt-app-layout="dark-sidebar" data-kt-app-sidebar-push-header="true"
 	  data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true" class="app-default w-100">
 
@@ -138,7 +138,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-													<span class="menu-title" style="font-family:Cairo">الفندق</span>
+												<span class="menu-title" style="font-family:Cairo">الفندق</span>
 											</a>
 											<!--end:Menu link-->
 										</div>
@@ -155,7 +155,6 @@
 											<!--end:Menu link-->
 										</div>
 
-								
 										<!--end:Menu item-->
 										<!--begin:Menu item-->
 										<div class="menu-item">
@@ -235,7 +234,7 @@
 												</svg>
 											</span>
 											<!--end::Svg Icon-->
-											<input id="searchInput" type="text" class="form-control form-control-solid w-250px ps-15" placeholder="Search room" />
+											<input id="searchInput" type="text" class="form-control form-control-solid w-250px ps-15" placeholder="Search bill" />
 										</div>
 										<!--end::Search-->
 									</div>
@@ -244,9 +243,7 @@
 									<div class="card-toolbar">
 										<!--begin::Toolbar-->
 										<div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-											<!--begin::Filter-->
-									
-											<!--end::Filter-->
+								
 
 											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_Product"> إضافة منتج جديد</button>
 											<!--end::Add customer-->
@@ -267,18 +264,25 @@
 								<!--begin::Card body-->
 								<div class="card-body pt-0">
 									<h1> مرحبا @ViewBag.user</h1>
-@* 
-									<form asp-action="Rooms" method="post" id="room_filter" class="from">
-										<select name="name" class="from-controller" onchange="this.form.submit()">
+
+						@* 			<form asp-action="Index" method="post" class="from">
+										<select name="city" id="city" class="form-control form-control-sm" onchange="this.form.submit()">
 											<option></option>
 											<option value="all">All</option>
-											@foreach (var hotel in hotels)
+											@foreach (var hotel in Model)
 											{
-											<option value="@hotel.name">@hotel.name</option>
+												<option value="@hotel.city">@hotel.city</option>
 											}
 
 										</select>
 									</form> *@
+								@* 	<div class="col-12">
+										<span class="alert-danger text-danger" asp-validation-for="@Model.First().name"></span>
+										<span class="alert-danger text-danger" asp-validation-for="@Model.First().city"></span>
+										<span class="alert-danger text-danger" asp-validation-for="@Model.First().phone"></span>
+										<span class="alert-danger text-danger" asp-validation-for="@Model.First().address"></span>
+										<span class="alert-danger text-danger" asp-validation-for="@Model.First().email"></span>
+									</div> *@
 									<!--begin::Table-->
 									<table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
 										<!--begin::Table head-->
@@ -290,19 +294,18 @@
 														<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
 													</div>
 												</th>
-												<th class="min-w-125px text-end" style="font-family:cairo">id الغرفة </th>
-													<th class="min-w-125px text-end" style="font-family:cairo"> الفندق </th>
+												<th class="min-w-125px text-end" style="font-family:cairo">رقم bill </th>
+												<th class="min-w-125px text-end" style="font-family:cairo"> اسم  </th>
+												<th class="min-w-125px text-end" style="font-family:cairo">هاتف  </th>
 
-													<th class="min-w-125px text-end" style="font-family:cairo"> رقم الغرفة </th>
+												<th class="min-w-125px text-end" style="font-family:cairo">التاريخ </th>
 
-												<th class="min-w-125px text-end" style="font-family:cairo">السعر </th>
-
-												<th class="min-w-125px text-end" style="font-family:cairo">نوع</th>
+												<th class="min-w-125px text-end" style="font-family:cairo">من</th>
 
 
-												<th class="min-w-125px text-end" style="font-family:cairo">المزايا</th>
+												<th class="min-w-125px text-end" style="font-family:cairo">الى</th>
 
-												<th class="min-w-125px text-end" style="font-family:cairo"> طعام</th>
+												<th class="min-w-125px text-end" style="font-family:cairo"> سعر كلي</th>
 
 												<th class="min-w-125px text-end" style="font-family:cairo">إجراء </th>
 
@@ -313,7 +316,7 @@
 										<!--begin::Table body-->
 										<tbody class="fw-semibold text-gray-600">
 											@if (Model != null)
-												@foreach (var room in Model)
+												@foreach (var bill in Model)
 												{
 													<tr v-for="(item, aidx) in Franchies" :key="aidx">
 														<!--begin::Checkbox-->
@@ -326,54 +329,50 @@
 														<!--begin::id=-->
 														<td>
 
-															<a href="#" class="text-gray-600 text-hover-primary mb-1">@room.id</a>
+															<a href="#" class="text-gray-600 text-hover-primary mb-1">@bill.id</a>
 
 														</td>
-
-
-															<td>
-																@{
-																	var hotel = hotels.FirstOrDefault((Func<Hotel, bool>)(hotel => hotel.id == room.hotelid));
-
-																<a href="#" class="text-gray-600 text-hover-primary mb-1">@hotel.name</a>
-																}
-															</td>
-
-
 														<!--end::id=-->
 														<!--begin::name=-->
 														<td>
 
-																<a href="#" class="text-gray-600 text-hover-primary mb-1">@room.room_number</a>
+															<a href="#" class="text-gray-600 text-hover-primary mb-1">@bill.name</a>
 
 
 														</td>
 														<!--end::name=-->
 														<!--begin::city=-->
-												
+														<td>
+
+															@bill.phone
+
+														</td>
 														<!--end::city=-->
 														<!--begin:: PRICE=-->
-														<td>@room.price</td>
+														<td>@bill.invoiceDate</td>
 														<!--end::PRICE=-->
 														<!--begin::PHONE NUMBER=-->
-														<td>@room.type</td>
+														<td>@bill.from</td>
 														<!--end::phone number=-->
 
-														<td>@room.feature</td>
+														<td>@bill.to</td>
 
 
-														<td>@room.food</td>
+														<td>@bill.net</td>
 
 														<td>
 															<div class="btn-group">
-															<a asp-action="EditRoom" asp-route-id="@room.id" class="btn btn-outline-success">Edit</a>
-
-															<a asp-action="DeleteRoom" asp-route-id="@room.id" class="btn btn-outline-danger">Delete</a>
-															
-															</div>
+@* 																<a asp-action="EditBill" asp-route-id="@bill.id" class="btn btn-outline-success">Edit</a>
+ *@															</div>
 														</td>
 													</tr>
 												}
+
+
+
+
+
+
 
 										</tbody>
 										<!--end::Table body-->
@@ -387,64 +386,7 @@
 								<!--end::Card body-->
 							</div>
 
-							@* Model code *@
-							<div class="modal fade" id="kt_modal_add_Product" tabindex="-1" aria-hidden="true" role="dialog">
-								<!--begin::Modal dialog-->
-								<div class="modal-dialog modal-dialog-centered mw-650px">
-									<!--begin::Modal content-->
-									<div class="modal-content">
-										<!--begin::Form-->
-											<form class="form" method="post" asp-action="createNewRoomA">
-												<div class="form-group">
-													<label for="type">Type:</label>
-													<input type="text" class="form-control" name="type" id="type" placeholder="Enter type">
-												</div>
-												<div class="form-group">
-													<label for="price">Price:</label>
-													<input type="number" class="form-control" name="price" id="price" placeholder="Enter price">
-												</div>
-												<div class="form-group">
-													<label for="image">Image URL:</label>
-													<input type="text" class="form-control" name="image" id="image" placeholder="Enter image URL">
-												</div>
-												<div class="form-group">
-												<label for="room_number">Room Number:</label>
-												<input type="text" class="form-control" name="room_number" id="room_number" placeholder="Enter room number">
-												</div>
-
-
-
-												<div class="form-group">
-													<label for="hotelId">Hotel ID:</label>
-@* 													<input type="text" class="form-control" name="hotelid" id="hotelid" asp-for="@hotelid">*@
-													<select name="hotelid">
-														<option></option>
-														@foreach (var hotel in hotels)
-														{
-															<option value="@hotel.id">@hotel.name</option>
-														}
-													</select>
-												</div>
-
-
-
-
-
-												<div class="form-group">
-													<label for="food">Food:</label>
-													<input type="text" class="form-control" id="food" name="food" placeholder="Enter food">
-												</div>
-												<div class="form-group">
-													<label for="feature">Feature:</label>
-													<input type="text" name="feature" class="form-control" id="feature" placeholder="Enter feature">
-												</div>
-												<button type="submit" class="btn btn-primary">Submit</button>
-											</form>
-										<!--end::Form-->
-									</div>
-								</div>
-							</div>
-							@* end of Modal *@
+				
 
 						</div>
 						<!--end::Content container-->

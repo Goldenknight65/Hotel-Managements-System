@@ -4,6 +4,7 @@ using Hotel_Managements_System.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel_Managements_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231115161949_edit_invoice")]
+    partial class edit_invoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,51 +24,6 @@ namespace Hotel_Managements_System.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Hotel_Managements_System.Models.Bill", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("cartId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("discount")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("from")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("invoiceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("net")
-                        .HasColumnType("float");
-
-                    b.Property<string>("phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("tax")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("to")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("total")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.ToTable("bills");
-                });
 
             modelBuilder.Entity("Hotel_Managements_System.Models.Cart", b =>
                 {

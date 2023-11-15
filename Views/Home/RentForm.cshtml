@@ -18,7 +18,7 @@
             <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter your phone number" required>
         </div>
 
-        <!-- Card Number -->
+@*         <!-- Card Number -->
         <div class="form-group">
             <label for="cardNumber">Card Number</label>
             <input type="text" class="form-control" id="cardNumber" placeholder="Enter your card number" required>
@@ -28,6 +28,17 @@
         <div class="form-group">
             <label for="cvv">CVV</label>
             <input type="text" class="form-control" id="cvv" placeholder="Enter CVV" required>
+        </div>
+ *@
+
+        <div class="form-group">
+            <label for="from">from</label>
+            <input type="datetime" class="form-control" id="from" placeholder="from" required>
+        </div>
+
+        <div class="form-group">
+            <label for="to">to</label>
+            <input type="datetime" class="form-control" id="to" placeholder="to" required>
         </div>
 
 
@@ -47,3 +58,16 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<script>
+    $(document).ready(function () {
+        // Initialize DateTimePicker
+        $('#from').datepicker({
+            format: 'yyyy-mm-ddThh:ii',
+            autoclose: true
+        });
+
+        // Set the default date to the current date and time
+        var currentDate = new Date();
+        $('#from').datepicker('setDate', currentDate);
+    });
+</script>

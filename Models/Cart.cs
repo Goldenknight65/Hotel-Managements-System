@@ -10,8 +10,7 @@ namespace Hotel_Managements_System.Models
         public int hotelid { set; get; }
         [Required]
         public int roomid { set; get; }
-        [Required]
-        public int detailid { set; get; }
+     
         [Required]
         public double price { set; get; }
         [Required]
@@ -19,12 +18,12 @@ namespace Hotel_Managements_System.Models
         public Cart() { }
 
         public Cart(int id, int hotelid, int roomid,
-            int detailid, double price, int userid)
+            double price, int userid)
         {
             this.id = id;
             this.hotelid = hotelid;
             this.roomid = roomid;
-            this.detailid = detailid;
+         
             this.price = price;
             this.userid = userid;
         }

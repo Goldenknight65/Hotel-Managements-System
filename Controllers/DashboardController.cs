@@ -2,11 +2,21 @@
 using Hotel_Managements_System.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using MailKit.Net.Smtp;
+
+
+
+
 
 namespace Hotel_Managements_System.Controllers
 {
     public class DashboardController : Controller
     {
+
+        /*
+		 fkdiccvrndebywjx
+		 */
 
         private readonly ApplicationDbContext _context;
         public DashboardController(ApplicationDbContext context)
@@ -35,6 +45,32 @@ namespace Hotel_Managements_System.Controllers
             /*    ViewBag.hotels = hotels;
                   return View();*/
         }
+
+
+		public async Task<string> SendEmail()
+		{
+			var message = new MimeMessage();
+			message.From.Add(new MailboxAddress("test message", "mahdithelal@gmail.com"));
+			message.To.Add(MailboxAddress.Parse("mmahdi630@gmail.com"));
+			message.Subject = "Test Email from my project in asp.net core mvc";
+			message.Body = new TextPart("Plain")
+			{
+				Text = "this message was send using asp.net core mvc"
+			};
+			using(var client = new SmtpClient()) { 
+			try
+			{
+					client.Connect("smtp.gmail.com",587);
+					client.Authenticate("mahdithelal@gmail.com","fkdiccvrndebywjx");
+					await client.SendAsync(message);
+					client.Disconnect(true);
+			}
+			catch (Exception ex) { 
+				return ex.Message.ToString();
+				}
+			}
+			return "Ok";
+		}
 		[HttpPost]
 		public IActionResult Index(string city)
 		{
@@ -68,6 +104,23 @@ namespace Hotel_Managements_System.Controllers
 			return View(Rooms);
 			/*    ViewBag.hotels = hotels;
                   return View();*/
+		}
+
+
+		public IActionResult Bill()
+		{
+
+			var user = HttpContext.User.Identity.Name;
+			ViewBag.user = user;
+			CookieOptions option = new CookieOptions();
+			Response.Cookies.Append("user", user, option);
+
+
+			ViewBag.user = user;
+			var bill = _context.bills.ToList();
+			
+			return View(bill);
+
 		}
 		public IActionResult createNewHotel(Hotel hotel)
 		{
