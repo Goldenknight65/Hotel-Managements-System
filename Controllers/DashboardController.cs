@@ -14,9 +14,7 @@ namespace Hotel_Managements_System.Controllers
     public class DashboardController : Controller
     {
 
-        /*
-		 fkdiccvrndebywjx
-		 */
+    
 
         private readonly ApplicationDbContext _context;
         public DashboardController(ApplicationDbContext context)
@@ -42,8 +40,7 @@ namespace Hotel_Managements_System.Controllers
 
 
             return View(hotels);
-            /*    ViewBag.hotels = hotels;
-                  return View();*/
+     
         }
 
 
@@ -90,8 +87,7 @@ namespace Hotel_Managements_System.Controllers
 			ViewBag.user = user;
 			var hotels = _context.hotel.Where(x => x.city.Equals(city));
 			return View(hotels);
-			/*    ViewBag.hotels = hotels;
-                  return View();*/
+			
 		}
 
 		public IActionResult Rooms()
@@ -102,8 +98,7 @@ namespace Hotel_Managements_System.Controllers
 			var hotels = _context.hotel.ToList();
 			ViewBag.hotels = hotels;
 			return View(Rooms);
-			/*    ViewBag.hotels = hotels;
-                  return View();*/
+			
 		}
 
 
@@ -131,8 +126,7 @@ namespace Hotel_Managements_System.Controllers
 				return RedirectToAction("Index");
 			}
 
-			/*_context.hotel.Add(hotel);
-			_context.SaveChanges();*/
+		
 			var hotels = _context.hotel.ToList();
 			return View("Index",hotels);
 
