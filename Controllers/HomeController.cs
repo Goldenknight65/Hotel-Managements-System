@@ -51,12 +51,6 @@ namespace Hotel_Managements_System.Controllers
             User user = new User();
             user.phone = phoneNumber;
             user.name = fullName;
-
-/*          
-                _context.users.Add(user);
-                _context.SaveChanges();
-*/
-
             
 
             var ro = _context.rooms.SingleOrDefault(x => x.id == id);
@@ -68,7 +62,7 @@ namespace Hotel_Managements_System.Controllers
 
 
 
-
+/*
             Invoice invoice = new Invoice();
             invoice.from = from;
             invoice.to = to;
@@ -76,14 +70,14 @@ namespace Hotel_Managements_System.Controllers
             invoice.total = rentprice;
             invoice.tax = 15;
             invoice.net = rentprice + (rentprice * 0.15);
-
+*/
 
             Bill bill = new Bill();
             bill.from = from;
             bill.to = to;
             bill.invoiceDate = DateTime.Now;
             bill.total = rentprice;
-            bill.tax = 15;
+            bill.tax = 0.15;
             bill.net = rentprice + (rentprice * 0.15);
             bill.name = user.name;
             bill.phone = user.phone;

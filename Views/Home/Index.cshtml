@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<Hotel_Managements_System.Models.Hotel>
-@Model IEnumerable <HotelDB> 
 
 @{
     ViewData["Title"] = "Home Page";
-
+        Layout = "~/Views/Shared/_LayoutShopping.cshtml";
 }
 
 
@@ -14,11 +13,7 @@
             padding: 20px;
         }
 
-        .hotel-module {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+  
 
         .hotel-image {
             max-width: 100%;
@@ -30,32 +25,52 @@
     @if (Model != null)
         @foreach (var item in Model)
         {
-            <div class="container">
+            <div class="container mt-4">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="hotel-module">
+                        <div class="card">
                             <!-- Hotel Name -->
-                            <h2>@item.name</h2>
+                            <div class="card-header">
+                                <h2 class="card-title">@item.name</h2>
+                            </div>
 
                             <!-- Body Information (Address, City, Country) -->
-                            <p><strong>Address:</strong> @item.address</p>
-                            <p><strong>City:</strong>@item.city</p>
-                            <p><strong>phone:</strong>  @item.phone</p>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="card-text"><strong>الحي:</strong> @item.address</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="card-text"><strong>المدينة:</strong> @item.city</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="card-text"><strong>رقم التواصل</strong> @item.phone</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="card-text"><strong>البريد:</strong> @item.email</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-md-4">
                         <!-- Image -->
-                        <img src="@item.image" alt="Hotel Image" class="hotel-image">
+                        <div class="card">
+                            <img src="@item.image" alt="صورة الفندق" class="card-img-top">
 
-
-                        <div class="text-right p-1">
-                            <div class="btn-group">
-                                    <a asp-action="RoomList" asp-route-id="@item.id" class="btn btn-primary">View Room</a>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <a asp-action="RoomList" asp-route-id="@item.id" class="btn btn-primary">عرض الغرف</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
 
         }
 

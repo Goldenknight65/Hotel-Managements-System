@@ -1,8 +1,10 @@
-﻿
-@{
+﻿@{
+    Layout = "~/Views/Shared/_LayoutShopping.cshtml";
+
     int roomid = ViewBag.room;
     int hotelid = ViewBag.hotel;
 }
+
 <div class="container">
     <h2>Payment Information</h2>
     <form asp-action="RentApplication" method="post">
@@ -18,53 +20,35 @@
             <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
         </div>
 
-@*         <!-- Card Number -->
         <div class="form-group">
-            <label for="cardNumber">Card Number</label>
-            <input type="text" class="form-control" id="cardNumber" placeholder="Enter your card number" required>
-        </div>
-
-        <!-- CVV -->
-        <div class="form-group">
-            <label for="cvv">CVV</label>
-            <input type="text" class="form-control" id="cvv" placeholder="Enter CVV" required>
-        </div>
- *@
-
-        <div class="form-group">
-            <label for="from">from</label>
-            <input type="datetime" class="form-control" id="from" placeholder="from" required>
+            <label for="from">From</label>
+            <input type="datetime-local" class="form-control" id="from" name="from" placeholder="From" required>
         </div>
 
         <div class="form-group">
-            <label for="to">to</label>
-            <input type="datetime" class="form-control" id="to" placeholder="to" required>
+            <label for="to">To</label>
+            <input type="datetime-local" class="form-control" id="to" name="to" placeholder="To" required>
         </div>
 
-
-
-        <div class="form-group  visually-hidden">
-            <label for="hotelid">hotel id</label>
+        <div class="form-group visually-hidden">
+            <label for="hotelid">Hotel ID</label>
             <input type="text" name="hoteid" class="form-control" id="hotelid" asp-for="@hotelid" required>
         </div>
 
-
-        <div class="form-group  visually-hidden">
-            <label for="id">room id</label>
-            <input class="form-control" id="id" name="id" placeholder="room id" asp-for="@roomid" required>
+        <div class="form-group visually-hidden">
+            <label for="id">Room ID</label>
+            <input class="form-control" id="id" name="id" placeholder="Room ID" asp-for="@roomid" required>
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
-
 </div>
+
 <script>
     $(function () {
         $('#from').datetimepicker();
     });
-
 
     $(function () {
         $('#to').datetimepicker();
