@@ -86,8 +86,8 @@ namespace Hotel_Managements_System.Controllers
             _context.bills.Add(bill);
             _context.SaveChanges();
 
-
-            return RedirectToAction("Index");
+            ViewBag.bill = bill;
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

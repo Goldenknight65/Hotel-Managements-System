@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Bill bill = ViewBag.bill;
+}
+<<div class="card">
+    <div class="card-body mx-4">
+        <div class="container">
+            <p class="my-5 mx-5" style="font-size: 30px;">Thank for your purchase</p>
+            <div class="row">
+                <ul class="list-unstyled">
+                    <li class="text-black">@bill.name</li>
+                    <li class="text-muted mt-1"><span class="text-black">Invoice</span> </li>
+                    <li class="text-black mt-1">April 17 2021</li>
+                </ul>
+                <hr>
+                <!-- Replacing placeholders -->
+                <div class="row">
+                    <div class="col-xl-6">
+                        <p class="float-start">Tax:@bill.tax</p>
+                    </div>
+                    <div class="col-xl-6">
+                        <p class="float-end">Total: @bill.total</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <p class="float-start">Discount: @bill.discount</p>
+                    </div>
+                    <div class="col-xl-6">
+                        <p class="float-end">Invoice Date:@bill.invoiceDate</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <p class="float-start">From: @bill.from</p>
+                    </div>
+                    <div class="col-xl-6">
+                        <p class="float-end">To: @bill.to</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <p class="float-start">Net:@bill.net</p>
+                    </div>
+                  
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-6">
+                        <p class="float-start">Phone: @bill.phone</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
