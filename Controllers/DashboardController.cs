@@ -58,7 +58,7 @@ namespace Hotel_Managements_System.Controllers
 			try
 			{
 					client.Connect("smtp.gmail.com",587);
-					client.Authenticate("mahdithelal@gmail.com","fkdiccvrndebywjx");
+					client.Authenticate("mahdithelal@gmail.com","");
 					await client.SendAsync(message);
 					client.Disconnect(true);
 			}
